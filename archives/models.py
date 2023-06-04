@@ -41,6 +41,9 @@ class User(BaseModel):
     role = models.ForeignKey('Role', on_delete=models.CASCADE)
     image = models.ForeignKey('Image', on_delete=models.CASCADE, null=True, blank=True)
 
+    def __str__(self):
+        return self.email + ' ' + self.role.name
+
     class Meta:
         db_table = 'user'
 
@@ -82,6 +85,9 @@ class Product(BaseModel):
     image = models.ForeignKey('Image', on_delete=models.CASCADE)
     skill = models.ForeignKey('Skill', on_delete=models.CASCADE)
     age_rating = models.ForeignKey('AgeRating', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.name + ' ' + self.category.name
 
     class Meta:
         db_table = 'product'
