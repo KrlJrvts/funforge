@@ -122,7 +122,7 @@ class Image(BaseModel):
         db_table = 'image'
 
 
-# joint tables
+# middle tables
 
 class UserProduct(BaseModel):
     id = models.AutoField(primary_key=True)
