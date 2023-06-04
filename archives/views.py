@@ -7,8 +7,20 @@ from archives.models import Category
 
 # Create your views here.
 
+# Products Views
+
 class CategoriesView(View):
     template_name = 'categories.html'
     model = Category
     context_object_name = 'categories'
+
+
+# Users Views
+
+
+
+
+
+
+
 

@@ -37,9 +37,9 @@ class User(BaseModel):
     phone = models.CharField(max_length=S)
     date_created = models.DateTimeField(auto_now_add=True)
     status = models.CharField(max_length=1, default='A')
-    address_id = models.ForeignKey('Address', on_delete=models.CASCADE)
-    role_id = models.ForeignKey('Role', on_delete=models.CASCADE)
-    image_id = models.ForeignKey('Image', on_delete=models.CASCADE, null=True, blank=True)
+    address = models.ForeignKey('Address', on_delete=models.CASCADE)
+    role = models.ForeignKey('Role', on_delete=models.CASCADE)
+    image = models.ForeignKey('Image', on_delete=models.CASCADE, null=True, blank=True)
 
     class Meta:
         db_table = 'user'
@@ -78,10 +78,10 @@ class Product(BaseModel):
     players_max = models.IntegerField()
     description = models.TextField(max_length=10000)
     status = models.CharField(max_length=1, default='A')
-    category_id = models.ForeignKey('Category', on_delete=models.CASCADE)
-    image_id = models.ForeignKey('Image', on_delete=models.CASCADE)
-    skill_id = models.ForeignKey('Skill', on_delete=models.CASCADE)
-    age_rating_id = models.ForeignKey('AgeRating', on_delete=models.CASCADE)
+    category = models.ForeignKey('Category', on_delete=models.CASCADE)
+    image = models.ForeignKey('Image', on_delete=models.CASCADE)
+    skill = models.ForeignKey('Skill', on_delete=models.CASCADE)
+    age_rating = models.ForeignKey('AgeRating', on_delete=models.CASCADE)
 
     class Meta:
         db_table = 'product'
@@ -126,8 +126,8 @@ class Image(BaseModel):
 
 class UserProduct(BaseModel):
     id = models.AutoField(primary_key=True)
-    user_id = models.ForeignKey('User', on_delete=models.CASCADE)
-    product_id = models.ForeignKey('Product', on_delete=models.CASCADE)
+    user = models.ForeignKey('User', on_delete=models.CASCADE)
+    product = models.ForeignKey('Product', on_delete=models.CASCADE)
     date_created = models.DateTimeField(auto_now_add=True)
     status = models.CharField(max_length=1)
 
@@ -137,8 +137,8 @@ class UserProduct(BaseModel):
 
 class Favorite(BaseModel):
     id = models.AutoField(primary_key=True)
-    user_id = models.ForeignKey('User', on_delete=models.CASCADE)
-    product_id = models.ForeignKey('Product', on_delete=models.CASCADE)
+    user = models.ForeignKey('User', on_delete=models.CASCADE)
+    product = models.ForeignKey('Product', on_delete=models.CASCADE)
     date_created = models.DateTimeField(auto_now_add=True)
 
     class Meta:
