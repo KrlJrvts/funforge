@@ -1,5 +1,5 @@
 from django.db.models import Model
-from django.contrib import admin
+
 # Create your models here.
 
 from django.db import models
