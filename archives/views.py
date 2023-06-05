@@ -1,8 +1,6 @@
 from django.views.generic import View
-from django.shortcuts import render, redirect
-from django.urls import reverse_lazy, reverse
 
-from archives.models import Category
+from archives.models import Category, User
 
 
 # Create your views here.
@@ -15,12 +13,33 @@ class CategoriesView(View):
     context_object_name = 'categories'
 
 
+class CategoryCreateView(View):
+    template_name = 'category_create.html'
+    model = Category
+    context_object_name = 'category'
+
+
+class CategoryUpdateView(View):
+    template_name = 'category_update.html'
+    model = Category
+    context_object_name = 'category'
+
+
 # Users Views
 
+class UsersView(View):
+    template_name = 'users.html'
+    model = User
+    context_object_name = 'users'
 
 
+class UserCreateView(View):
+    template_name = 'user_create.html'
+    model = User
+    context_object_name = 'user'
 
 
-
-
-
+class UserUpdateView(View):
+    template_name = 'user_update.html'
+    model = User
+    context_object_name = 'user'
