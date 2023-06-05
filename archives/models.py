@@ -82,7 +82,7 @@ class Product(BaseModel):
     description = models.TextField(max_length=10000)
     status = models.CharField(max_length=1, default='A')
     category = models.ForeignKey('Category', on_delete=models.CASCADE)
-    image = models.ForeignKey('Image', on_delete=models.CASCADE)
+    image = models.ForeignKey('Image', on_delete=models.CASCADE, null=True, blank=True)
     skill = models.ForeignKey('Skill', on_delete=models.CASCADE)
     age_rating = models.ForeignKey('AgeRating', on_delete=models.CASCADE)
 
