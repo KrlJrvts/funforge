@@ -80,7 +80,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'funforge',
-        'USER': os.getenv('DB_USER'),
+        'user': os.getenv('DB_USER'),
         'PASSWORD': os.getenv('DB_PASSWORD'),
         'HOST': 'localhost',
         'PORT': '3306',
