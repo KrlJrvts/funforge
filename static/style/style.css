@@ -1,7 +1,34 @@
-html {
-    background-color: #b42626;
+
+/* colors */
+
+.anthracite {
+    background-color: #292C33;
 }
 
+.blue {
+    color: #00BFFF;
+}
+
+.green {
+    color: #00FF00;
+}
+
+.yellow{
+    color: #FFD700;
+}
+
+.silver {
+    color: #C0C0C0;
+}
+
+.red {
+    color: #b42626;
+}
+
+
+/* fonts */
+
+/* general */
 
 /* index.html */
 
@@ -12,4 +39,6 @@ html {
 /* register.html */
 
 /* profile.html */
+
+
 
