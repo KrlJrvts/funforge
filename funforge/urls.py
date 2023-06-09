@@ -17,10 +17,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+import utils
 from archives.views import add_game
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('add_game/', add_game(), name='add_game'),
+    path('add_game/', add_game, name='add_game'),
     ]
 
