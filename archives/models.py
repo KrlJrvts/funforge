@@ -86,6 +86,9 @@ class Category(BaseModel):
     name = models.CharField(max_length=S)
     description = models.CharField(max_length=M)
 
+    def __str__(self):
+        return f'{self.name} ({self.description})'
+
 
 class Skill(BaseModel):
     id = models.AutoField(primary_key=True)

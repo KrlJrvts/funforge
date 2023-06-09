@@ -10,7 +10,7 @@ def category(request):
     context = {
         'all_categories': all_category,
     }
-    return render(request, 'all_categories.html', context)
+    return render(request, './store/category.html', context)
 
 
 def product(request):
@@ -18,5 +18,5 @@ def product(request):
     context = {
         'all_product': all_product,
     }
-    return render(request, './store/products.html', context)
+    return render(request, './store/store.html', context)
 
