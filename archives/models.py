@@ -70,7 +70,7 @@ class Address(BaseModel):
     apartment_number = models.IntegerField(null=True, blank=True)
 
     def __str__(self):
-        return self.country + ', ' + self.city + ', ' + self.street + ' ' + str(self.house_number)
+        return self.country + ', ' + self.city + ', ' + self.street + ' ' + self.zip_code
 
     class Meta:
         db_table = 'address'
