@@ -1,6 +1,7 @@
-from django.views.generic import View
+from django.contrib.auth import authenticate, login
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
-from django.urls import reverse_lazy, reverse
+from django.urls import reverse
 
 from archives.models import Category, Product
 
@@ -28,3 +29,18 @@ def product_detail(request, pk):
     }
     return render(request, './store/product-detail.html', context)
 
+
+# user views
+
+def login(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(request, email=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect(reverse('store:store'))
+        else:
+            return JsonResponse({'error': 'Invalid credentials'})
+    else:
+        return JsonResponse({'error': 'Invalid request method'})
