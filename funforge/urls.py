@@ -26,5 +26,5 @@ urlpatterns = [
     path('', category),
     path('store/', product),
     path('store/<int:pk>/', product_detail),
-    ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
