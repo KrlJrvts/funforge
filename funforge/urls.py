@@ -20,7 +20,7 @@ from django.contrib import admin
 from django.urls import path
 from django.views.generic import TemplateView
 
-from archives.views import product, category, product_detail, login
+from archives.views import product, category, product_detail, login_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -28,6 +28,6 @@ urlpatterns = [
     path('category/', category, name='category'),
     path('store/', product, name='store'),
     path('store/<int:pk>/', product_detail, name='product_detail'),
-    path('login/', login, name='login'),
+    path('login/', login_view, name='login'),
     ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

@@ -32,13 +32,13 @@ def product_detail(request, pk):
 
 # user views
 
-def login(request):
+def login_view(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
         user = authenticate(request, email=username, password=password)
         if user is not None:
-            login(request, user)
+            login_view(request, user)
             return redirect(reverse('store:store'))
         else:
             return JsonResponse({'error': 'Invalid credentials'})
