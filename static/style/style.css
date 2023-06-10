@@ -10,19 +10,19 @@
 }
 
 .green {
-    color: #00FF00;
+    color: #00FF00 !important;
 }
 
 .yellow{
-    color: #FFD700;
+    color: #FFD700 !important;
 }
 
 .silver {
-    color: #C0C0C0;
+    color: #C0C0C0  !important;
 }
 
 .red {
-    color: #b42626;
+    color: #b42626 !important;
 }
 
 .styled-space {
