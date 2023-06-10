@@ -52,7 +52,6 @@ class Role(BaseModel):
     name = models.CharField(max_length=XS)
     description = models.CharField(max_length=M)
 
-
     def __str__(self):
         return self.name
 
