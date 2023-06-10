@@ -36,9 +36,9 @@ class User(BaseModel):
     phone = models.CharField(max_length=S)
     date_created = models.DateTimeField(auto_now_add=True)
     status = models.CharField(max_length=1, default='A')
-    address_id = models.ForeignKey('Address', on_delete=models.CASCADE)
-    role_id = models.ForeignKey('Role', on_delete=models.CASCADE)
-    image_id = models.ForeignKey('Image', on_delete=models.CASCADE, null=True, blank=True)
+    address_id = models.ForeignKey('Address', on_delete=models.DO_NOTHING)
+    role_id = models.ForeignKey('Role', on_delete=models.DO_NOTHING)
+    image_id = models.ForeignKey('Image', on_delete=models.DO_NOTHING, null=True, blank=True)
 
     def __str__(self):
         return self.first_name + ' ' + self.last_name + ' ' + self.role_id.name
@@ -86,10 +86,10 @@ class Product(BaseModel):
     players_max = models.IntegerField()
     description = models.TextField(max_length=10000)
     status = models.CharField(max_length=1, default='A')
-    category_id = models.ForeignKey('Category', on_delete=models.CASCADE)
-    image = models.ForeignKey('Image', on_delete=models.CASCADE, null=True, blank=True)
-    skill = models.ForeignKey('Skill', on_delete=models.CASCADE)
-    age_rating = models.ForeignKey('AgeRating', on_delete=models.CASCADE)
+    category_id = models.ForeignKey('Category', on_delete=models.DO_NOTHING)
+    image = models.ForeignKey('Image', on_delete=models.DO_NOTHING, null=True, blank=True)
+    skill = models.ForeignKey('Skill', on_delete=models.DO_NOTHING)
+    age_rating = models.ForeignKey('AgeRating', on_delete=models.DO_NOTHING)
 
     def __str__(self):
         return self.name + ' - ' + self.category_id.name + ' - ' + str(self.stock)
@@ -136,7 +136,11 @@ class Skill(BaseModel):
 
 class Image(BaseModel):
     id = models.AutoField(primary_key=True)
-    source = models.CharField(max_length=M)
+    name = models.CharField(max_length=S, null=True, blank=True)
+    image = models.ImageField(upload_to='static/images/products', null=True, blank=True)
+
+    def __str__(self):
+        return self.name
 
     class Meta:
         db_table = 'image'
@@ -146,8 +150,8 @@ class Image(BaseModel):
 
 class UserProduct(BaseModel):
     id = models.AutoField(primary_key=True)
-    user_id = models.ForeignKey('User', on_delete=models.CASCADE)
-    product_id = models.ForeignKey('Product', on_delete=models.CASCADE)
+    user_id = models.ForeignKey('User', on_delete=models.DO_NOTHING)
+    product_id = models.ForeignKey('Product', on_delete=models.DO_NOTHING)
     date_created = models.DateTimeField(auto_now_add=True)
     status = models.CharField(max_length=1)
 
@@ -157,8 +161,8 @@ class UserProduct(BaseModel):
 
 class Favorite(BaseModel):
     id = models.AutoField(primary_key=True)
-    user_id = models.ForeignKey('User', on_delete=models.CASCADE)
-    product_id = models.ForeignKey('Product', on_delete=models.CASCADE)
+    user_id = models.ForeignKey('User', on_delete=models.DO_NOTHING)
+    product_id = models.ForeignKey('Product', on_delete=models.DO_NOTHING)
     date_created = models.DateTimeField(auto_now_add=True)
 
     class Meta:
