@@ -36,12 +36,12 @@ class User(BaseModel):
     phone = models.CharField(max_length=S)
     date_created = models.DateTimeField(auto_now_add=True)
     status = models.CharField(max_length=1, default='A')
-    address_id = models.ForeignKey('Address', on_delete=models.DO_NOTHING)
-    role_id = models.ForeignKey('Role', on_delete=models.DO_NOTHING)
-    image_id = models.ForeignKey('Image', on_delete=models.DO_NOTHING, null=True, blank=True)
+    address = models.ForeignKey('Address', on_delete=models.DO_NOTHING)
+    role = models.ForeignKey('Role', on_delete=models.DO_NOTHING)
+    image = models.ForeignKey('Image', on_delete=models.DO_NOTHING, null=True, blank=True)
 
     def __str__(self):
-        return self.first_name + ' ' + self.last_name + ' ' + self.role_id.name
+        return f"{self.first_name} {self.last_name} {self.role.name}"
 
     class Meta:
         db_table = 'user'
