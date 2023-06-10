@@ -6,7 +6,7 @@ from django.urls import reverse
 from archives.models import Category, Product
 
 
-def category(request):
+def categories_view(request):
     all_category = Category.objects.all()
     context = {
         'all_categories': all_category,
@@ -14,15 +14,15 @@ def category(request):
     return render(request, './store/category.html', context)
 
 
-def product(request):
-    all_product = Product.objects.all()
+def products_view(request):
+    all_product = Product.objects.filter(status='A')
     context = {
         'all_product': all_product,
     }
     return render(request, './store/store.html', context)
 
 
-def product_detail(request, pk):
+def product_detail_view(request, pk):
     product_details = Product.objects.get(pk=pk)
     context = {
         'product': product_details,
@@ -36,8 +36,9 @@ def login_view(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
-        user = authenticate(request, email=username, password=password)
-        if user is not None:
+        status = request.POST.get('status')
+        user = authenticate(request, email=username, password=password, status=status)
+        if user is not None and status == 'A':
             login_view(request, user)
             return redirect(reverse('store:store'))
         else:

@@ -20,14 +20,14 @@ from django.contrib import admin
 from django.urls import path
 from django.views.generic import TemplateView
 
-from archives.views import product, category, product_detail, login_view
+from archives.views import products_view, categories_view, product_detail_view, login_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', TemplateView.as_view(template_name='index.html'), name='index'),
-    path('category/', category, name='category'),
-    path('store/', product, name='store'),
-    path('store/<int:pk>/', product_detail, name='product_detail'),
+    path('category/', categories_view, name='category'),
+    path('store/', products_view, name='store'),
+    path('store/<int:pk>/', product_detail_view, name='product_detail'),
     path('login/', login_view, name='login'),
     ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
