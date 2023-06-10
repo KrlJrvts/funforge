@@ -92,7 +92,7 @@ class Product(BaseModel):
     age_rating = models.ForeignKey('AgeRating', on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.name
+        return self.name + ' - ' + self.category_id.name + ' - ' + str(self.stock)
 
     class Meta:
         db_table = 'product'
@@ -116,7 +116,7 @@ class Category(BaseModel):
     description = models.CharField(max_length=M)
 
     def __str__(self):
-        return f'{self.name} ({self.description})'
+        return self.name + ' - ' + self.description
 
     class Meta:
         db_table = 'category'
@@ -126,6 +126,9 @@ class Skill(BaseModel):
     id = models.AutoField(primary_key=True)
     level = models.CharField(max_length=1)
     description = models.CharField(max_length=M)
+
+    def __str__(self):
+        return f'{self.level} - ({self.description})'
 
     class Meta:
         db_table = 'skill'
