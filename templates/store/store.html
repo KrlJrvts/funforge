@@ -7,7 +7,9 @@
 </head>
 <body>
 
-{{ all_categories }}
+{% for category in categories_view %}
+    <p>{% url 'category' category.pk %}{{ category.name }} </p>
+{% endfor %}
 
 </body>
 </html>

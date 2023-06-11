@@ -35,7 +35,7 @@
                         Product categories
                     </a>
                     <ul class="dropdown-menu">
-                        {% for category in categories %}
+                        {% for category in categories_view %}
                             <li><a class="dropdown-item" href="">{%  url 'category' category.pk %}</a>{{ category.name }}</li>
                         {% endfor %}
                         <li><a class="dropdown-item" href="#">Another action</a></li>
