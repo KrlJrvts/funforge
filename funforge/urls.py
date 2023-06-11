@@ -17,14 +17,25 @@ Including another URLconf
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+from django.views.generic import TemplateView
 
-from archives.views import view_product, category, product_detail
+
+from archives.views import products_view, categories_view, product_detail_view, login_view, logout_view, register_view
 
 urlpatterns = [
+    # admin
     path('admin/', admin.site.urls),
-    path('', category),
-    path('store/', view_product),
-    path('store/<int:pk>/', product_detail),
+
+    # store
+    path('', TemplateView.as_view(template_name='index.html'), name='index'),
+    path('category/', categories_view, name='category'),
+    path('store/', products_view, name='store'),
+    path('store/<int:pk>/', product_detail_view, name='product_detail'),
+
+    # user
+    path('login/', login_view, name='login'),
+    path('logout/', logout_view, name='logout'),
+    path('register/', register_view, name='register')
     ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

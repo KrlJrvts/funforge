@@ -16,3 +16,20 @@ class AddGameForm(forms.Form):
     category_id = forms.ChoiceField(label='Category')
     image_id = forms.ImageField(label='Image')
     skill_id = forms.ChoiceField(label='Skill Level')
+
+
+class RegisterUserForm(forms.Form):
+    first_name = forms.CharField(label='First Name')
+    last_name = forms.CharField(label='Last Name')
+    email = forms.EmailField(label='Email')
+    password = forms.CharField(label='Password', widget=forms.PasswordInput)
+    phone_number = forms.CharField(label='Phone Number')
+    zip_code = forms.CharField(label='Zip Code')
+    country = forms.CharField(label='Country')
+    county = forms.CharField(label='County')
+    city = forms.CharField(label='City')
+    street = forms.CharField(label='Street')
+    house_number = forms.IntegerField(label='House Number')
+    apartment_number = forms.IntegerField(label='Apartment Number')
+
+

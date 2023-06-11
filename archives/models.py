@@ -28,7 +28,6 @@ class BaseModel(models.Model):
 # Create your models here.
 
 class User(BaseModel):
-    id = models.AutoField(primary_key=True)
     first_name = models.CharField(max_length=XS)
     last_name = models.CharField(max_length=XS)
     email = models.CharField(max_length=S, unique=True)
@@ -48,7 +47,6 @@ class User(BaseModel):
 
 
 class Role(BaseModel):
-    id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=XS)
     description = models.CharField(max_length=M)
 
@@ -60,7 +58,6 @@ class Role(BaseModel):
 
 
 class Address(BaseModel):
-    id = models.AutoField(primary_key=True)
     zip_code = models.CharField(max_length=XS)
     country = models.CharField(max_length=S)
     county = models.CharField(max_length=S)
@@ -77,7 +74,6 @@ class Address(BaseModel):
 
 
 class Product(BaseModel):
-    id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=M)
     price = models.DecimalField(max_digits=6, decimal_places=2)
     year = models.IntegerField()
@@ -99,7 +95,6 @@ class Product(BaseModel):
 
 
 class AgeRating(BaseModel):
-    id = models.AutoField(primary_key=True)
     minimum = models.IntegerField()
     description = models.CharField(max_length=M)
 
@@ -111,7 +106,6 @@ class AgeRating(BaseModel):
 
 
 class Category(BaseModel):
-    id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=S)
     description = models.CharField(max_length=M)
 
@@ -123,7 +117,6 @@ class Category(BaseModel):
 
 
 class Skill(BaseModel):
-    id = models.AutoField(primary_key=True)
     level = models.CharField(max_length=1)
     description = models.CharField(max_length=M)
 
@@ -135,7 +128,6 @@ class Skill(BaseModel):
 
 
 class Image(BaseModel):
-    id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=S, null=True, blank=True)
     image = models.ImageField(upload_to='static/images/products', null=True, blank=True)
 
@@ -149,9 +141,8 @@ class Image(BaseModel):
 # joint tables
 
 class UserProduct(BaseModel):
-    id = models.AutoField(primary_key=True)
-    user_id = models.ForeignKey('User', on_delete=models.DO_NOTHING)
-    product_id = models.ForeignKey('Product', on_delete=models.DO_NOTHING)
+    user = models.ForeignKey('User', on_delete=models.DO_NOTHING)
+    product = models.ForeignKey('Product', on_delete=models.DO_NOTHING)
     date_created = models.DateTimeField(auto_now_add=True)
     status = models.CharField(max_length=1)
 
@@ -160,9 +151,8 @@ class UserProduct(BaseModel):
 
 
 class Favorite(BaseModel):
-    id = models.AutoField(primary_key=True)
-    user_id = models.ForeignKey('User', on_delete=models.DO_NOTHING)
-    product_id = models.ForeignKey('Product', on_delete=models.DO_NOTHING)
+    user = models.ForeignKey('User', on_delete=models.DO_NOTHING)
+    product = models.ForeignKey('Product', on_delete=models.DO_NOTHING)
     date_created = models.DateTimeField(auto_now_add=True)
 
     class Meta:

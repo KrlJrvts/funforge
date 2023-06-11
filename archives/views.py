@@ -1,11 +1,14 @@
-from django.views.generic import View
-from django.shortcuts import render, redirect, get_object_or_404
-from django.urls import reverse_lazy, reverse
+from django.contrib.auth import authenticate, login, logout
+from django.http import JsonResponse
+from django.shortcuts import render, redirect
+from django.urls import reverse
+from utils import forms
+
 
 from archives.models import Category, Product
 
 
-def category(request):
+def categories_view(request):
     all_category = Category.objects.all()
     context = {
         'all_categories': all_category,
@@ -13,15 +16,15 @@ def category(request):
     return render(request, './store/category.html', context)
 
 
-def view_product(request):
-    all_product = Product.objects.all()
+def products_view(request):
+    all_product = Product.objects.filter(status='A')
     context = {
         'all_product': all_product,
     }
     return render(request, './store/store.html', context)
 
 
-def product_detail(request, pk):
+def product_detail_view(request, pk):
     product_details = Product.objects.get(pk=pk)
     context = {
         'product': product_details,
@@ -29,16 +32,46 @@ def product_detail(request, pk):
     return render(request, './store/product-detail.html', context)
 
 
-# def cart(request):
-#     return render(request, 'cart.html')
-#
-#
-# def calculate_total_price(cart_items):
-#     total_price = 0
-#     for item in cart_items:
-#         total_price += item.price * item.quantity
-#     return total_price
-#
-#
-# def checkout(request):
-#     return render(request, 'checkout.html')
+# user views
+
+def login_view(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        status = request.POST.get('status')
+        user = authenticate(request, email=username, password=password, status=status)
+        if user is not None and status == 'A':
+            login(request, user)
+            return redirect(reverse('store/store.html'))
+        else:
+            return JsonResponse({'error': 'Invalid credentials'})
+    else:
+        return JsonResponse({'error': 'Invalid request method'})
+
+
+def logout_view(request):
+    logout(request)
+    return redirect(reverse('index'))
+
+
+def register_view(request):
+    if request.method == 'POST':
+        form = forms.RegisterUserForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect(reverse('index'))
+    else:
+        form = forms.RegisterUserForm()
+    return render(request, './user/register.html', {'form': form})
+
+
+def user_edit_view(request):
+    pass
+
+
+def favorite_view(request):
+    pass
+
+
+def cart_view(request):
+    pass
