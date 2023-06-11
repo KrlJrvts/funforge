@@ -60,7 +60,7 @@ class Role(BaseModel):
 
 
 class Address(BaseModel):
-    id = models.AutoField(primary_key=True)
+    id = models.AutoField(primary_key=True) # remove id's
     zip_code = models.CharField(max_length=XS)
     country = models.CharField(max_length=S)
     county = models.CharField(max_length=S)

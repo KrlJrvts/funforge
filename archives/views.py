@@ -32,6 +32,14 @@ def product_detail_view(request, pk):
     return render(request, './store/product-detail.html', context)
 
 
+def cart_view(request):
+    pass
+
+
+def favorite_view(request):
+    pass
+
+
 # user views
 
 def login_view(request):
@@ -59,9 +67,14 @@ def register_view(request):
         form = forms.RegisterUserForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect(reverse('index.html'))
+            return redirect(reverse('index'))
 
     else:
         form = forms.RegisterUserForm()
     return render(request, './user/register.html', {'form': form})
+
+
+def user_edit_view(request):
+    pass
+
 
