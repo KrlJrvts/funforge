@@ -2,10 +2,9 @@ from django.contrib.auth import authenticate, login, logout
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse
-from utils import forms
-
 
 from archives.models import Category, Product
+from utils import forms
 
 
 def categories_view(request):
@@ -22,6 +21,10 @@ def products_view(request):
         'all_product': all_product,
     }
     return render(request, './store/store.html', context)
+
+
+def products_all_view(request):  # for admin and staff
+    pass
 
 
 def product_detail_view(request, pk):
@@ -42,7 +45,7 @@ def login_view(request):
         user = authenticate(request, email=username, password=password, status=status)
         if user is not None and status == 'A':
             login(request, user)
-            return redirect(reverse('store/store.html'))
+            return redirect(reverse('store'))
         else:
             return JsonResponse({'error': 'Invalid credentials'})
     else:
@@ -69,9 +72,46 @@ def user_edit_view(request):
     pass
 
 
+# edit name, address, phone number, email, password, image
+#     if request.method = 'PATCH':
+#         pass
+
+
+def favorite_add_view(request):
+    pass
+
+
+# add fav product to user
+
+def favorite_remove_view(request):
+    pass
+
+
+# remove fav product from user,
+
+
 def favorite_view(request):
     pass
 
 
+# see fav product of user
+
+
 def cart_view(request):
     pass
+
+
+# update stock (remove bought qty from stock) and add to cart
+
+
+def cart_add_view(request):
+    pass
+
+
+# add product to cart
+
+
+def cart_remove_view(request):
+    pass
+
+# remove product from cart

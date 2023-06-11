@@ -21,7 +21,14 @@ from django.urls import path, include
 from django.views.generic import TemplateView
 
 
-from archives.views import products_view, categories_view, product_detail_view, login_view, logout_view, register_view
+from archives.views import (
+    products_view,
+    categories_view,
+    product_detail_view,
+    login_view,
+    logout_view,
+    register_view
+)
 
 urlpatterns = [
     # admin
