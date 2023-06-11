@@ -51,7 +51,7 @@ def login_view(request):
 
 def logout_view(request):
     logout(request)
-    return redirect(reverse('index.html'))
+    return redirect(reverse('index'))
 
 
 def register_view(request):
@@ -60,7 +60,6 @@ def register_view(request):
         if form.is_valid():
             form.save()
             return redirect(reverse('index'))
-
     else:
         form = forms.RegisterUserForm()
     return render(request, './user/register.html', {'form': form})
