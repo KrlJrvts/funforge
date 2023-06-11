@@ -19,12 +19,12 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
 
-from archives.views import product, category, product_detail
+from archives.views import view_product, category, product_detail
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', category),
-    path('store/', product),
+    path('store/', view_product),
     path('store/<int:pk>/', product_detail),
     ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

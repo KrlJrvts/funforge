@@ -1,14 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <link rel="stylesheet" type="text/css" href="../../static/style/style.css">
+    <title>Funforge Logout Page</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
 
-<div>
-    here will be log out button, and then we will add modal to confirm log out
+<div class="container mt-5">
+    <h2>Logout</h2>
+    <p>You have been successfully logged out.</p>
+    <a href="{% url 'login' %}" class="btn btn-primary">Login</a>
 </div>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
