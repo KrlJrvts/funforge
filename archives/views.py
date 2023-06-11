@@ -32,14 +32,6 @@ def product_detail_view(request, pk):
     return render(request, './store/product-detail.html', context)
 
 
-def cart_view(request):
-    pass
-
-
-def favorite_view(request):
-    pass
-
-
 # user views
 
 def login_view(request):
@@ -78,3 +70,9 @@ def user_edit_view(request):
     pass
 
 
+def favorite_view(request):
+    pass
+
+
+def cart_view(request):
+    pass
