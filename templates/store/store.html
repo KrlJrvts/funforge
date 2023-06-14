@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <title>Homepage</title>
     <link rel="stylesheet" type="text/css" href="../../static/style/style.css">
+        <link rel="script" type="text/javascript" href="/JS/scripts.js">
 </head>
-<body>
+<body class="anthracite">
 
 {% for category in categories_view %}
     <p>{% url 'category' category.pk %}{{ category.name }} </p>
