@@ -33,3 +33,8 @@ class RegisterUserForm(forms.Form):
     apartment_number = forms.IntegerField(label='Apartment Number')
 
 
+class EditProfileForm (forms.Form):
+    pass
+    # Add form for edit profile
+
+

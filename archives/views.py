@@ -7,6 +7,7 @@ from utils import forms
 
 
 from archives.models import Category, Product, Favorite
+from utils.forms import EditProfileForm
 
 
 def categories_view(request):
@@ -137,4 +138,6 @@ def cart_remove_view(request):
     pass
 
 # remove product from cart
+
+
 
