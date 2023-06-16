@@ -1,4 +1,3 @@
-
 /* colors */
 
 .anthracite {
@@ -13,12 +12,12 @@
     color: #00FF00 !important;
 }
 
-.yellow{
+.yellow {
     color: #FFD700 !important;
 }
 
 .silver {
-    color: #C0C0C0  !important;
+    color: #C0C0C0 !important;
 }
 
 .red {
@@ -26,8 +25,8 @@
 }
 
 .styled-space {
-        margin-top: 20px;
-    }
+    margin-top: 20px;
+}
 
 /* fonts */
 
@@ -51,48 +50,48 @@ h2 {
     font-size: 20px;
     color: #C0C0C0;
 }
+
 body {
-            padding: 20px;
-        }
+    padding: 20px;
+}
 
-        .user-profile {
-            background-color: #f8f9fa;
-            padding: 20px;
-            margin-bottom: 20px;
-        }
+.user-profile {
+    background-color: #f8f9fa;
+    padding: 20px;
+    margin-bottom: 20px;
+}
 
-        .user-profile h2 {
-            font-size: 32px;
-            font-weight: bold;
-            margin-bottom: 20px;
-            color: #333;
-            text-align: center;
-        }
+.user-profile h2 {
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333;
+    text-align: center;
+}
 
-        .user-info {
-            margin-bottom: 20px;
-            color: #666;
-            font-family: Arial, sans-serif;
-            font-size: 18px;
-            text-align: center;
-        }
+.user-info {
+    margin-bottom: 20px;
+    color: #666;
+    font-family: Arial, sans-serif;
+    font-size: 18px;
+    text-align: center;
+}
 
-        .form-group {
-            margin-bottom: 10px;
-        }
+.form-group {
+    margin-bottom: 10px;
+}
 
-        .form-control {
-            width: 300px;
-        }
+.form-control {
+    width: 300px;
+}
 
-        button[type="submit"] {
-            width: 150px;
-        }
+button[type="submit"] {
+    width: 150px;
+}
 
-        .confirmation-text {
-        color: #00BFFF !important;
-        }
-</style>
+.confirmation-text {
+    color: #00BFFF !important;
+}
 
 /* general */
 
