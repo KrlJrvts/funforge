@@ -36,9 +36,9 @@ urlpatterns = [
 
     # store
     path('', TemplateView.as_view(template_name='index.html'), name='index'),
-    path('category/', categories_view, name='category'),
-    path('store/', products_view, name='store'),
-    path('store/<int:pk>/', product_detail_view, name='product_detail'),
+    path('category', products_view, name='category'),
+    path('store', categories_view, name='store'),
+    path('store/<int:pk>', product_detail_view, name='product_detail'),
 
     # user
     path('login/', login_view, name='login'),
