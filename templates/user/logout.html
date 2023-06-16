@@ -5,10 +5,21 @@
     <title>Title</title>
     <link rel="stylesheet" type="text/css" href="../../static/style/style.css">
 </head>
-<body>
+<body class="anthracite">
 
 <div>
-    here will be log out button, and then we will add modal to confirm log out
+    <button id="logoutButton">Logout</button>
+
+    <!-- Logout Confirmation Modal -->
+    <div id="logoutModal" class="modal">
+        <div class="modal-content">
+            <h2>Confirm Logout</h2>
+            <p class="confirmation-text">Are you sure you want to logout?</p>
+            <button id="confirmLogoutButton">Yes</button>
+            <button id="cancelLogoutButton">No</button>
+        </div>
+    </div>
 </div>
+
 </body>
 </html>

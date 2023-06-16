@@ -2,10 +2,65 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>User Profile</title>
     <link rel="stylesheet" type="text/css" href="../../static/style/style.css">
 </head>
-<body>
+<body class="anthracite">
+<!-- Main Content -->
+<main>
+    <div class="container">
+        <div class="user-profile">
+            <h2 class="blue">User Profile</h2>
+
+            <!-- User Information -->
+            <div class="user-info">
+                <!--  user information, such as username, email, etc. -->
+            </div>
+        </div>
+
+        <!-- Update Profile Form -->
+        <form id="updateProfileForm" method="post">
+            {% csrf_token %}
+
+            <!-- Input fields for updating profile information -->
+            <div class="form-group">
+                <label for="username" class="blue">Username:</label>
+                <input type="text" id="username" name="username" placeholder="Enter your new username" class="form-control blue">
+            </div>
+
+            <div class="form-group">
+                <label for="email" class="blue">Email:</label>
+                <input type="email" id="email" name="email" placeholder="Enter your new email" class="form-control blue">
+            </div>
+
+            <!-- Update Profile Button -->
+            <button type="submit" class="btn btn-primary blue">Update Profile</button>
+        </form>
+
+        <!-- Change Password Form -->
+        <form id="changePasswordForm" method="post">
+            {% csrf_token %}
+
+            <!-- Input fields for changing password -->
+            <div class="form-group">
+                <label for="currentPassword" class="blue">Current Password:</label>
+                <input type="password" id="currentPassword" name="currentPassword" placeholder="Enter your current password" class="form-control blue">
+            </div>
+
+            <div class="form-group">
+                <label for="newPassword" class="blue">New Password:</label>
+                <input type="password" id="newPassword" name="newPassword" placeholder="Enter your new password" class="form-control blue">
+            </div>
+            <div class="form-group">
+                <label for="confirmPassword" class="blue">Confirm Password:</label>
+                <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm your new password" class="form-control blue">
+            </div>
+
+            <!-- Change Password Button -->
+            <button type="submit" class="btn btn-primary blue">Change Password</button>
+        </form>
+    </div>
+</main>
 
 </body>
 </html>

@@ -7,5 +7,45 @@
 </head>
 <body>
 
+<!-- Header -->
+<header>
+    <!-- Add header content, such as a logo, navigation, or search bar -->
+</header>
+<!-- Main Content -->
+<main>
+    <h1>My Favorite Games</h1>
+    <!-- Sorting and Filtering Options -->
+    <div class="sorting-options">
+        <!-- Add sorting and filtering functionality, such as dropdown menus or buttons -->
+    </div>
+    <!-- Favorite Games List -->
+    <div class="game-list">
+        <!-- Iterate over the user's favorite games and display relevant information -->
+        {% for game in favorite_games %}
+            <div class="game-item">
+                <img src="{{ game.image }}" alt="{{ game.name }}" class="game-image">
+                <h2>{{ game.name }}</h2>
+                <p>{{ game.description }}</p>
+                <p>Price: {{ game.price }}</p>
+                <!-- Game Details Link -->
+                <a href="{% url 'game_details' game.id %}">View Details</a>
+                <!-- Add to Cart Button -->
+                <button class="add-to-cart">Add to Cart</button>
+                <!-- Remove from Favorites Button -->
+                <button class="remove-from-favorites">Remove from Favorites</button>
+            </div>
+        {% empty %}
+            <p>No favorite games found.</p>
+        {% endfor %}
+    </div>
+    <!-- Pagination -->
+    <div class="pagination">
+        <!-- need some  functionality to navigate through the favorite games list -->
+    </div>
+</main>
+<!-- Footer -->
+<footer>
+    <!--  footer content, such as links to social media, contact information, or additional navigation -->
+</footer>
 </body>
 </html>
