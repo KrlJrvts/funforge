@@ -113,7 +113,9 @@ def favorite_remove_view(request, product_id):
 
 
 def favorite_view(request):
-    all_favorites = Favorite.objects.all()
+
+    # filter favorites by user
+    all_favorites = Favorite.objects.filter(user=request.user)
     context = {
         'all_favorites': all_favorites,
     }
