@@ -37,6 +37,9 @@ def product_detail_view(request, pk):
 
 # user views
 
+
+# login view should be in menu and it should take in user email and password, check if user exists and if email and
+# password is correct. if they are correct, redirect to index page, if not, display error message in login modal.
 def login_view(request):
     if request.method == 'POST':
         username = request.POST.get('username')
