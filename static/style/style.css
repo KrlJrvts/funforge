@@ -97,6 +97,7 @@ button[type="submit"] {
 body {
     padding: 20px;
     background-color: #292C33 !important;
+    color: #C0C0C0 !important;
 }
 
 /* index.html */
@@ -108,6 +109,15 @@ body {
 /* register.html */
 
 /* profile.html */
+
+/* navbar */
+
+.nbdefault {
+    background-color: #292C33 !important;
+    color: #C0C0C0 !important;
+    border-radius: 50px !important;
+    padding: 10px !important;
+}
 
 
 

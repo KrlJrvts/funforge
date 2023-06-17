@@ -1,0 +1,42 @@
+
+<nav class="navbar navbar-expand-lg nbdefaultfault">
+    <div class="container-fluid anthracite">
+        <a class="navbar-brand blue" href="#">Navbar</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active green" aria-current="page" href="#">Home</a>
+                </li>
+                <li class="nav-item green">
+                    <a class="nav-link active green" aria-current="page" href="store">Store</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle green" href="#" role="button" data-bs-toggle="dropdown"
+                       aria-expanded="false">
+                        Product categories
+                    </a>
+                    <ul class="dropdown-menu green">
+                        {% for category in categories_view %}
+                            <li><a class="dropdown-item green" href="">{%  url 'category' category.pk %}</a>{{ category.name }}</li>
+                        {% endfor %}
+                        <li><a class="dropdown-item green anthracite" href="#">Another action</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item green anthracite" href="#">Something else here</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#loginModal">
+                        Login
+                    </button>
+                        {% include 'user/login.html' %}
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
