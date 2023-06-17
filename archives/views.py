@@ -45,7 +45,7 @@ def login_view(request):
         user = authenticate(request, email=username, password=password, status=status)
         if user is not None and status == 'A':
             login(request, user)
-            return redirect(reverse('store'))
+            return redirect(reverse('index'))
         else:
             return JsonResponse({'error': 'Invalid credentials'})
     else:

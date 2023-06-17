@@ -2,6 +2,7 @@
 
 .anthracite {
     background-color: #292C33 !important;
+    --bs-body-bg: #292C33 !important;
 }
 
 .blue {
@@ -95,6 +96,7 @@ button[type="submit"] {
 
 body {
     padding: 20px;
+    background-color: #292C33 !important;
 }
 
 /* index.html */
