@@ -1,4 +1,5 @@
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,7 +21,7 @@
 <div class="card mb-3 bg-dark-subtle d-flex" style="max-width: 540px;">
     <div class="row g-0">
         <div class="col-md-4">
-            <img src="{% if product.image %} {{ product.image.url }} {% else %} {% static 'images/products/default_game.jpg' %} {% endif %}"
+            <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static 'images/products/default_game.jpg' %}{% endif %}"
                  class="img-fluid rounded-start">
         </div>
         <div class="col-md-8">
@@ -29,11 +30,37 @@
                 <p class="card-text text-secondary-emphasis silver">{{ product.category_id.category_name }}</p>
                 <p class="card-text text-secondary-emphasis silver">{{ product.description }}</p>
                 <h2 class="card-text text-secondary-emphasis silver">€ {{ product.price }}</h2>
+
+                <!-- Other Games Dropdown -->
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="otherGamesDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                        {% if category.category_name == "Party Game" %}
+                            Other Party Games
+                        {% elif category.category_name == "Strategy Game" %}
+                            Other Strategy Games
+                        {% elif category.category_name == "Cooperative Game" %}
+                            Other Cooperative Games
+                        {% endif %}
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="otherGamesDropdown">
+                        {% for game in other_games %}
+                            {% if game.pk >= 6 %}
+                                <li>
+                                    <a class="dropdown-item" href="{% url 'product_detail' pk=game.pk %}">
+                                        {{ game.name }}
+                                    </a>
+                                </li>
+                            {% else %}
+                                <li>
+                                    <a class="dropdown-item" href="{% url 'product_detail' pk=game.pk %}">
+                                        {{ game.name }}
+                                    </a>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
 </div>
-
-
-</body>
-</html>

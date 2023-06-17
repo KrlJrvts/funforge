@@ -1,7 +1,7 @@
 from django.contrib.auth import authenticate, login, logout
 from django.http import JsonResponse
 from django.contrib import messages
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from utils import forms
 
@@ -26,10 +26,23 @@ def products_view(request):
     return render(request, './store/store.html', context)
 
 
+from django.shortcuts import render, get_object_or_404
+from .models import Product, Category
+
+
 def product_detail_view(request, pk):
-    product_details = Product.objects.get(pk=pk)
+    product = get_object_or_404(Product, pk=pk)
+
+    # Get the category of the current product
+    category = product.category_id
+
+    # Get other games in the same category
+    other_games = Product.objects.filter(category_id=category).exclude(pk=pk)
+
     context = {
-        'product': product_details,
+        'product': product,
+        'other_games': other_games,
+        'category': category,
     }
     return render(request, './store/product-detail.html', context)
 
@@ -140,6 +153,5 @@ def cart_remove_view(request):
     pass
 
 # remove product from cart
-
 
 
