@@ -119,6 +119,8 @@ def favorite_view(request):
     }
     return render(request, './user/favorite.html', context)
 
+# filter favorites by user
+
 
 def cart_view(request):
     pass
