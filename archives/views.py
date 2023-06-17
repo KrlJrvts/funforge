@@ -40,6 +40,11 @@ def product_detail_view(request, pk):
 
 # login view should be in menu and it should take in user email and password, check if user exists and if email and
 # password is correct. if they are correct, redirect to index page, if not, display error message in login modal.
+# at the moment i can't get error and will not redirect to index page
+# Error 405:
+# Method Not Allowed (POST): /
+# Method Not Allowed: /
+
 def login_view(request):
     if request.method == 'POST':
         username = request.POST.get('username')

@@ -1,5 +1,3 @@
-
-
 <nav class="navbar navbar-expand-lg nbdefaultfault">
     <div class="container-fluid anthracite">
         <a class="navbar-brand blue" href="{% url 'index' %}">Navbar</a>
@@ -13,13 +11,16 @@
                     <a class="nav-link active green" aria-current="page" href="{% url 'index' %}">Home</a>
                 </li>
                 <li class="nav-item green">
-                    <a class="nav-link active green" aria-current="page" href="{% url 'favorite' %}">Favorite</a>
-                </li>                <li class="nav-item green">
-                    <a class="nav-link active green" aria-current="page" href="store">Cart</a>
+                    <a class="nav-link active green" aria-current="page" href="{% url 'store' %}">Store - might
+                        remove</a>
                 </li>
                 <li class="nav-item green">
-                    <a class="nav-link active green" aria-current="page" href="{% url 'store' %}">Store - might remove</a>
+                    <a class="nav-link active green" aria-current="page" href="{% url 'favorite' %}">Favorite</a>
                 </li>
+                <li class="nav-item green">
+                    <a class="nav-link active green" aria-current="page" href="store">Cart</a>
+                </li>
+
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle green" href="#" role="button" data-bs-toggle="dropdown"
                        aria-expanded="false">
@@ -28,7 +29,7 @@
                     <ul class="dropdown-menu green">
                         {% for category in categories_view %}
                             <li>
-                                <a class="dropdown-item green" href="">{%  url 'category' category.pk %}
+                                <a class="dropdown-item green" href="">{% url 'category' category.pk %}
                                     {{ category.name }}
                                 </a>
                             </li>
@@ -44,7 +45,7 @@
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#loginModal">
                         Login
                     </button>
-                        {% include 'user/login.html' %}
+                    {% include 'user/login.html' %}
                 </li>
             </ul>
         </div>

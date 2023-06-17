@@ -36,7 +36,7 @@ urlpatterns = [
     path('store/<int:pk>/', product_detail_view, name='product_detail'),
 
     # user
-    path('', login_view, name='login'),
+    path('login/', login_view, name='login'),
     path('logout/', logout_view, name='logout'),
     path('register/', register_view, name='register'),
     path('favorite/', login_required(favorite_view) , name='favorite'),
