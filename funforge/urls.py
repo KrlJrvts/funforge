@@ -22,7 +22,7 @@ from django.views.generic import TemplateView
 
 
 from archives.views import products_view, categories_view, product_detail_view, login_view, logout_view, register_view, \
-    favorite_add_view, favorite_remove_view, favorite_view
+    favorite_add_view, favorite_remove_view, favorite_view, cart_view
 
 urlpatterns = [
     # admin
@@ -38,8 +38,9 @@ urlpatterns = [
     path('login/', login_view, name='login'),
     path('logout/', logout_view, name='logout'),
     path('register/', register_view, name='register'),
-    path('favorite_view/', favorite_view, name='favorite'),
+    path('favorite/', favorite_view, name='favorite'),
     path('add_favorite/', favorite_add_view, name='add-favorite'),
     path('remove_favorite/', favorite_remove_view, name='remove-favorite'),
+    path('cart/', cart_view, name='cart'),
     ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
