@@ -44,12 +44,10 @@ def login_view(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            request.session['user_id'] = user.id  # Store user ID in session storage
-            return redirect('index')  # Redirect to index page
+            return redirect('index')
         else:
-            return render(request, 'user/login.html', {'error': 'Invalid credentials'})
-    else:
-        return render(request, 'index.html')
+            messages.error(request, 'Invalid credentials')
+    return render(request, 'user/login.html')
 
 
 def logout_view(request):
