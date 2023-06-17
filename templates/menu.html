@@ -1,4 +1,3 @@
-{% load static %}
 
 
 <nav class="navbar navbar-expand-lg nbdefaultfault">
@@ -14,7 +13,7 @@
                     <a class="nav-link active green" aria-current="page" href="{% url 'index' %}">Home</a>
                 </li>
                 <li class="nav-item green">
-                    <a class="nav-link active green" aria-current="page" href="#">Favorite</a>
+                    <a class="nav-link active green" aria-current="page" href="{% url 'favorite' %}">Favorite</a>
                 </li>                <li class="nav-item green">
                     <a class="nav-link active green" aria-current="page" href="store">Cart</a>
                 </li>
@@ -28,7 +27,11 @@
                     </a>
                     <ul class="dropdown-menu green">
                         {% for category in categories_view %}
-                            <li><a class="dropdown-item green" href="">{%  url 'category' category.pk %}</a>{{ category.name }}</li>
+                            <li>
+                                <a class="dropdown-item green" href="">{%  url 'category' category.pk %}
+                                    {{ category.name }}
+                                </a>
+                            </li>
                         {% endfor %}
                         <li><a class="dropdown-item green anthracite" href="#">Another action</a></li>
                         <li>

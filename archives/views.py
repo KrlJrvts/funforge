@@ -1,4 +1,5 @@
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.contrib import messages
 from django.shortcuts import render, redirect
@@ -6,7 +7,7 @@ from django.urls import reverse
 from utils import forms
 
 
-from archives.models import Category, Product, Favorite
+from archives.models import Category, Product, Favorite, User
 from utils.forms import EditProfileForm
 
 
@@ -40,15 +41,15 @@ def login_view(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
-        status = request.POST.get('status')
-        user = authenticate(request, email=username, password=password, status=status)
-        if user is not None and status == 'A':
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
             login(request, user)
-            return redirect(reverse('store/store.html'))
+            request.session['user_id'] = user.id  # Store user ID in session storage
+            return redirect('index')  # Redirect to index page
         else:
-            return JsonResponse({'error': 'Invalid credentials'})
+            return render(request, 'user/login.html', {'error': 'Invalid credentials'})
     else:
-        return JsonResponse({'error': 'Invalid request method'})
+        return render(request, 'index.html')
 
 
 def logout_view(request):
@@ -112,10 +113,13 @@ def favorite_remove_view(request, product_id):
     return redirect('favorite')
 
 
+@login_required
 def favorite_view(request):
+    user_id = request.session['user_id']
+    user = User.objects.get(id=user_id)
 
     # filter favorites by user
-    all_favorites = Favorite.objects.filter(user=request.user)
+    all_favorites = Favorite.objects.filter(user=user)
     context = {
         'all_favorites': all_favorites,
     }
