@@ -1,8 +1,8 @@
-
 /* colors */
 
 .anthracite {
     background-color: #292C33 !important;
+    --bs-body-bg: #292C33 !important;
 }
 
 .blue {
@@ -13,12 +13,12 @@
     color: #00FF00 !important;
 }
 
-.yellow{
+.yellow {
     color: #FFD700 !important;
 }
 
 .silver {
-    color: #C0C0C0  !important;
+    color: #C0C0C0 !important;
 }
 
 .red {
@@ -26,8 +26,8 @@
 }
 
 .styled-space {
-        margin-top: 20px;
-    }
+    margin-top: 20px;
+}
 
 /* fonts */
 
@@ -51,50 +51,54 @@ h2 {
     font-size: 20px;
     color: #C0C0C0;
 }
-body {
-            padding: 20px;
-        }
 
-        .user-profile {
-            background-color: #f8f9fa;
-            padding: 20px;
-            margin-bottom: 20px;
-        }
 
-        .user-profile h2 {
-            font-size: 32px;
-            font-weight: bold;
-            margin-bottom: 20px;
-            color: #333;
-            text-align: center;
-        }
 
-        .user-info {
-            margin-bottom: 20px;
-            color: #666;
-            font-family: Arial, sans-serif;
-            font-size: 18px;
-            text-align: center;
-        }
+.user-profile {
+    background-color: #f8f9fa;
+    padding: 20px;
+    margin-bottom: 20px;
+}
 
-        .form-group {
-            margin-bottom: 10px;
-        }
+.user-profile h2 {
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333;
+    text-align: center;
+}
 
-        .form-control {
-            width: 300px;
-        }
+.user-info {
+    margin-bottom: 20px;
+    color: #666;
+    font-family: Arial, sans-serif;
+    font-size: 18px;
+    text-align: center;
+}
 
-        button[type="submit"] {
-            width: 150px;
-        }
+.form-group {
+    margin-bottom: 10px;
+}
 
-        .confirmation-text {
-        color: #00BFFF !important;
-        }
-</style>
+.form-control {
+    width: 300px;
+}
+
+button[type="submit"] {
+    width: 150px;
+}
+
+.confirmation-text {
+    color: #00BFFF !important;
+}
 
 /* general */
+
+body {
+    padding: 20px;
+    background-color: #292C33 !important;
+    color: #C0C0C0 !important;
+}
 
 /* index.html */
 
@@ -105,6 +109,15 @@ body {
 /* register.html */
 
 /* profile.html */
+
+/* navbar */
+
+.nbdefault {
+    background-color: #292C33 !important;
+    color: #C0C0C0 !important;
+    border-radius: 50px !important;
+    padding: 10px !important;
+}
 
 
 

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add to Favorites</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+  <div class="container">
+    <h1 class="mt-4">Add to Favorites</h1>
+
+    <form method="POST">
+      {% csrf_token %}
+
+      <div class="form-group">
+        <label for="user">User:</label>
+        <input type="text" class="form-control" id="user" name="user" required>
+      </div>
+
+      <div class="form-group">
+        <label for="product">Product:</label>
+        <input type="text" class="form-control" id="product" name="product" required>
+      </div>
+
+      <button type="submit" class="btn btn-primary">Add to Favorites</button>
+    </form>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
