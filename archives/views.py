@@ -1,10 +1,13 @@
 from django.contrib.auth import authenticate, login, logout
 from django.http import JsonResponse
+from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.urls import reverse
-
-from archives.models import Category, Product
 from utils import forms
+
+
+from archives.models import Category, Product, Favorite
+from utils.forms import EditProfileForm
 
 
 def categories_view(request):
@@ -21,10 +24,6 @@ def products_view(request):
         'all_product': all_product,
     }
     return render(request, './store/store.html', context)
-
-
-def products_all_view(request):  # for admin and staff
-    pass
 
 
 def product_detail_view(request, pk):
@@ -45,7 +44,7 @@ def login_view(request):
         user = authenticate(request, email=username, password=password, status=status)
         if user is not None and status == 'A':
             login(request, user)
-            return redirect(reverse('index'))
+            return redirect(reverse('store/store.html'))
         else:
             return JsonResponse({'error': 'Invalid credentials'})
     else:
@@ -68,33 +67,57 @@ def register_view(request):
     return render(request, './user/register.html', {'form': form})
 
 
-def user_edit_view(request):
-    pass
+def user_profile_edit_view(request):
+    user = request.user
+
+    if request.method == 'POST':
+        form = EditProfileForm(request.POST, instance=user)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Your profile has been updated.')
+            return redirect('index')
+    else:
+        form = EditProfileForm(instance=user)
+
+    return render(request, './user/edit_profile.html', {'form': form})
 
 
-# edit name, address, phone number, email, password, image
-#     if request.method = 'PATCH':
-#         pass
+def favorite_add_view(request, product_id):
+    if request.method == 'POST':
+        product = Product.objects.get(id=product_id)
+
+        favourite, created = Favorite.objects.get_or_create(user=request.user)
+
+        if product in favourite.products.all():
+            messages.warning(request, "Product is already in Funforge favorites.")
+        else:
+            favourite.products.add(product)
+            messages.success(request, "Product successfully added to favorites.")
+
+    return redirect('favorite')
 
 
-def favorite_add_view(request):
-    pass
+def favorite_remove_view(request, product_id):
+    if request.method == 'POST':
+        product = Product.objects.get(id=product_id)
 
+        favorite = Favorite.objects.get(user=request.user)
 
-# add fav product to user
+        if product in favorite.products.all():
+            favorite.products.remove(product)
+            messages.success(request, "Product successfully removed from favorites.")
+        else:
+            messages.warning(request, "Product is not in favorites.")
 
-def favorite_remove_view(request):
-    pass
-
-
-# remove fav product from user,
+    return redirect('favorite')
 
 
 def favorite_view(request):
-    pass
-
-
-# see fav product of user
+    all_favorites = Favorite.objects.all()
+    context = {
+        'all_favorites': all_favorites,
+    }
+    return render(request, './user/favorite.html', context)
 
 
 def cart_view(request):
@@ -115,3 +138,6 @@ def cart_remove_view(request):
     pass
 
 # remove product from cart
+
+
+
