@@ -18,25 +18,25 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
-from django.views.generic import TemplateView
+from django.contrib.auth
 from django.contrib.auth.decorators import login_required
 
 from archives import views
 from archives.views import products_view, categories_view, product_detail_view, login_view, logout_view, register_view, \
-    favorite_add_view, favorite_remove_view, favorite_view, cart_view
+    favorite_add_view, favorite_remove_view, favorite_view, cart_view, index_view
 
 urlpatterns = [
     # admin
     path('admin/', admin.site.urls),
 
     # store
-    path('', TemplateView.as_view(template_name='index.html'), name='index'),
+    path('', index_view, name='index'),
     path('category/', products_view,  name='category'),
     path('store/', categories_view, name='store'),
     path('store/<int:pk>/', product_detail_view, name='product_detail'),
 
     # user
-    path('login/', login_view, name='login'),
+    # path('login/', login_view, name='login'),
     path('logout/', logout_view, name='logout'),
     path('register/', register_view, name='register'),
     path('favorite/', login_required(favorite_view) , name='favorite'),

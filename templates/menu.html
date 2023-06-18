@@ -27,13 +27,14 @@
                         Product categories
                     </a>
                     <ul class="dropdown-menu green">
-                        {% for category in categories_view %}
-                            <li>
+                    <li>
+                        {% for category in all_category %}
                                 <a class="dropdown-item green" href="">{% url 'category' category.pk %}
                                     {{ category.name }}
                                 </a>
-                            </li>
+
                         {% endfor %}
+                    </li>
                         <li><a class="dropdown-item green anthracite" href="#">Another action</a></li>
                         <li>
                             <hr class="dropdown-divider">

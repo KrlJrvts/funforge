@@ -27,6 +27,7 @@ class BaseModel(models.Model):
 
 # Create your models here.
 
+
 class User(BaseModel):
     first_name = models.CharField(max_length=XS)
     last_name = models.CharField(max_length=XS)

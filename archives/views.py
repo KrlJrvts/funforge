@@ -1,13 +1,11 @@
+from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from django.http import JsonResponse
-from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.urls import reverse
-from utils import forms
-
 
 from archives.models import Category, Product, Favorite, User
+from utils import forms
 from utils.forms import EditProfileForm
 
 
@@ -44,18 +42,36 @@ def product_detail_view(request, pk):
 # Error 405:
 # Method Not Allowed (POST): /
 # Method Not Allowed: /
+# https://simpleisbetterthancomplex.com/tutorial/2016/07/22/how-to-extend-django-user-model.html
 
 def login_view(request):
+    if request.method == 'GET':
+        return render(request, 'user/login.html')
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
         user = authenticate(request, username=username, password=password)
-        if user is not None:
+        if user:
             login(request, user)
             return redirect('index')
         else:
             messages.error(request, 'Invalid credentials')
     return render(request, 'user/login.html')
+
+
+def index_view(request):
+    if request.method == 'GET':
+        return render(request, 'user/login.html')
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(request, username=username, password=password)
+        if user:
+            login(request, user)
+        else:
+            messages.error(request, 'Invalid credentials')
+    # return render(request, 'user/login.html')
+    return render(request, './index.html')
 
 
 def logout_view(request):
@@ -131,6 +147,7 @@ def favorite_view(request):
     }
     return render(request, './user/favorite.html', context)
 
+
 # filter favorites by user
 
 
@@ -152,6 +169,3 @@ def cart_remove_view(request):
     pass
 
 # remove product from cart
-
-
-
