@@ -44,34 +44,50 @@ def product_detail_view(request, pk):
 # Method Not Allowed: /
 # https://simpleisbetterthancomplex.com/tutorial/2016/07/22/how-to-extend-django-user-model.html
 
+# def login_view(request):
+#     if request.method == 'GET':
+#         return render(request, 'user/login.html')
+#     if request.method == 'POST':
+#         username = request.POST.get('username')
+#         password = request.POST.get('password')
+#         user = authenticate(request, username=username, password=password)
+#         if user and user.status == 'A':
+#             login(request, user)
+#             return redirect(reverse('index'))
+#         else:
+#             messages.error(request, 'Invalid credentials')
+#     # return render(request, 'user/login.html')
+#     return render(request, 'index.html')
+
+
 def login_view(request):
     if request.method == 'GET':
         return render(request, 'user/login.html')
-    if request.method == 'POST':
+    elif request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
         user = authenticate(request, username=username, password=password)
-        if user:
+        if user and user.status == 'A':
             login(request, user)
-            return redirect('index')
+            return redirect('index')  # Redirect to the 'index' URL name
         else:
             messages.error(request, 'Invalid credentials')
     return render(request, 'user/login.html')
 
 
-def index_view(request):
-    if request.method == 'GET':
-        return render(request, 'user/login.html')
-    if request.method == 'POST':
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-        user = authenticate(request, username=username, password=password)
-        if user:
-            login(request, user)
-        else:
-            messages.error(request, 'Invalid credentials')
-    # return render(request, 'user/login.html')
-    return render(request, './index.html')
+# def index_view(request):
+#     if request.method == 'GET':
+#         return render(request, 'user/login.html')
+#     if request.method == 'POST':
+#         username = request.POST.get('username')
+#         password = request.POST.get('password')
+#         user = authenticate(request, username=username, password=password)
+#         if user:
+#             login(request, user)
+#         else:
+#             messages.error(request, 'Invalid credentials')
+#     # return render(request, 'user/login.html')
+#     return render(request, './index.html')
 
 
 def logout_view(request):

@@ -1,3 +1,5 @@
+from django.contrib.auth.base_user import AbstractBaseUser
+from django.contrib.auth.models import PermissionsMixin, Permission, Group
 from django.db import models
 from django.db.models import Model
 
@@ -28,7 +30,7 @@ class BaseModel(models.Model):
 # Create your models here.
 
 
-class User(BaseModel):
+class User(BaseModel, AbstractBaseUser, PermissionsMixin):
     first_name = models.CharField(max_length=XS)
     last_name = models.CharField(max_length=XS)
     email = models.CharField(max_length=S, unique=True)
@@ -45,6 +47,13 @@ class User(BaseModel):
 
     class Meta:
         db_table = 'user'
+
+    groups = models.ManyToManyField(Group, related_name='users_archive')
+    user_permissions = models.ManyToManyField(
+        Permission,
+        related_name='users_archive',
+        blank=True,
+    )
 
 
 class Role(BaseModel):

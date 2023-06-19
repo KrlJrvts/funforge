@@ -27,14 +27,14 @@
                         Product categories
                     </a>
                     <ul class="dropdown-menu green">
-                    <li>
-                        {% for category in all_category %}
+                        <li>
+                            {% for category in all_category %}
                                 <a class="dropdown-item green" href="">{% url 'category' category.pk %}
                                     {{ category.name }}
                                 </a>
 
-                        {% endfor %}
-                    </li>
+                            {% endfor %}
+                        </li>
                         <li><a class="dropdown-item green anthracite" href="#">Another action</a></li>
                         <li>
                             <hr class="dropdown-divider">
@@ -42,11 +42,13 @@
                         <li><a class="dropdown-item green anthracite" href="#">Something else here</a></li>
                     </ul>
                 </li>
-                <li class="nav-item">
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#loginModal">
-                        Login
-                    </button>
-                    {% include 'user/login.html' %}
+                {#                <li class="nav-item">#}
+                {#                    <button type="button" class="btn btn-primary" href="{% url 'login' %}>#}
+                {#                        Login#}
+                {#                    </button>#}
+                {#                </li>#}
+                <li class=" nav-item green">
+                    <a class="nav-link active green" aria-current="page" href="{% url 'login' %}">Login</a>
                 </li>
             </ul>
         </div>
