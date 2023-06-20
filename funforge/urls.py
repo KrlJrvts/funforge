@@ -22,8 +22,17 @@ from django.urls import path, include
 from django.views.generic import TemplateView
 from archives import views
 
-from archives.views import products_view, categories_view, product_detail_view, login_view, logout_view, register_view, \
-    favorite_add_view, favorite_remove_view, favorite_view
+from archives.views import (
+    products_view,
+    categories_view,
+    product_detail_view,
+    login_view,
+    logout_view,
+    register_view,
+    favorite_add_view,
+    favorite_remove_view,
+    favorite_view
+)
 
 urlpatterns = [
     # admin

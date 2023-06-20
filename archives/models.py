@@ -1,9 +1,7 @@
-from django.contrib.auth.base_user import AbstractBaseUser
-from django.contrib.auth.models import PermissionsMixin, Permission, Group
+from django.contrib.auth.base_user import BaseUserManager
+from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, Permission, Group
 from django.db import models
 from django.db.models import Model
-
-# Create your models here.
 
 # MAX LENGTHS
 XS = 10
@@ -29,21 +27,60 @@ class BaseModel(models.Model):
 
 # Create your models here.
 
+class MyAccountManager(BaseUserManager):
+    def create_user(self, first_name, last_name, email, password=None):
+        if not email:
+            raise ValueError("Users must have an email address")
+
+        user = self.model(
+            first_name=self.capitalize(first_name),
+            last_name=self.capitalize(last_name),
+            email=self.normalize_email(email),
+            password=password,
+        )
+
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
+
+    def create_superuser(self, first_name, last_name, email, password):
+        user = self.create_user(
+            first_name=self.capitalize(first_name),
+            last_name=self.capitalize(last_name),
+            email=self.normalize_email(email),
+            password=password,
+        )
+
+        user.role_id = 1
+        user.save(using=self._db)
+
 
 class User(BaseModel, AbstractBaseUser, PermissionsMixin):
     first_name = models.CharField(max_length=XS)
     last_name = models.CharField(max_length=XS)
-    email = models.CharField(max_length=S, unique=True)
+    email = models.EmailField(verbose_name="email", max_length=S, unique=True)
     password = models.CharField(max_length=S)
     phone = models.CharField(max_length=S)
-    date_created = models.DateTimeField(auto_now_add=True)
+    date_created = models.DateTimeField(verbose_name="date joined", auto_now_add=True)
+    last_login = models.DateTimeField(verbose_name="last login", auto_now=True, null=True, blank=True)
     status = models.CharField(max_length=1, default='A')
     address = models.ForeignKey('Address', on_delete=models.DO_NOTHING)
-    role = models.ForeignKey('Role', on_delete=models.DO_NOTHING)
+    role = models.ForeignKey('Role', on_delete=models.DO_NOTHING, default=3)
     image = models.ForeignKey('Image', on_delete=models.DO_NOTHING, null=True, blank=True)
 
+    objects = MyAccountManager()
+
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['first_name', 'last_name', 'phone', 'address', 'email']
+
     def __str__(self):
-        return f"{self.first_name} {self.last_name} {self.role.name}"
+        return f"{self.first_name} {self.last_name} {self.role.name} {self.email}"
+
+    # def has_perm(self, perm, obj=None):
+    #     return self.is_admin
+
+    def has_module_perms(self, app_label):
+        return True
 
     class Meta:
         db_table = 'user'

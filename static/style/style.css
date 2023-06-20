@@ -95,9 +95,25 @@ button[type="submit"] {
 /* general */
 
 body {
-    padding: 20px;
     background-color: #292C33 !important;
     color: #C0C0C0 !important;
+
+}
+
+nav {
+    border: #b42626 1px solid;
+}
+
+footer {
+    border: #b42626 1px solid;
+    justify-self: center;
+}
+
+.main {
+    border: #b42626 1px solid;
+    justify-self: center;
+    min-height: 100vh;
+    height: 100%;
 }
 
 /* index.html */
