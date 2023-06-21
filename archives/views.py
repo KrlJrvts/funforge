@@ -68,9 +68,9 @@ def login_view(request):
         username = request.POST.get('username')
         password = request.POST.get('password')
         user = authenticate(request, username=username, password=password)
-        if user and user.status == 'A':
+        if user and user.is_active == '1':
             login(request, user)
-            return redirect('index')  # Redirect to the 'index' URL name
+            return redirect('store')  # Redirect to the 'index' URL name
         else:
             messages.error(request, 'Invalid credentials')
     return render(request, redirect('index'))
@@ -120,13 +120,15 @@ def register_view(request):
                 address=address  # Associate the Address object
             )
 
+            return redirect('login')
+
             # Additional processing or redirect to success page
 
     else:
         form = RegisterUserForm()
 
     context = {'form': form}
-    return render(request, 'user/login.html', context)
+    return render(request, 'user/register.html', context)
 
 
 @login_required

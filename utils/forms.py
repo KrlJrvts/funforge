@@ -1,5 +1,8 @@
+import email
+
 from django import forms
 
+from archives.models import User
 from .status import Status
 
 
@@ -33,6 +36,33 @@ class RegisterUserForm(forms.Form):
     street = forms.CharField(label='Street')
     house_number = forms.IntegerField(label='House Number')
     apartment_number = forms.IntegerField(label='Apartment Number')
+
+    def clean_email(self):
+        email = self.cleaned_data['email']
+        if User.objects.filter(email=email).exists():
+            raise forms.ValidationError('Email already exists.')
+        return email
+
+    def clean(self):
+        cleaned_data = super().clean()
+        password = cleaned_data.get('password')
+        password2 = cleaned_data.get('password2')
+
+        if password and password2 and password != password2:
+            raise forms.ValidationError('Passwords do not match.')
+
+        return cleaned_data
+
+    def save(self):
+        # Create a new user with the form data
+        user = User(
+            username=self.cleaned_data['email'],
+            email=self.cleaned_data['email'],
+            is_active=True  # Assuming is_active should be set to True for all registered users
+        )
+        user.set_password(self.cleaned_data['password'])
+        user.save()
+        return user
 
 
 class EditProfileForm(forms.Form):

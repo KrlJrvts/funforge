@@ -29,22 +29,40 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
+
+
  // JavaScript code for handling the logout button and modal
-    const logoutButton = document.getElementById('logoutButton');
-    const logoutModal = document.getElementById('logoutModal');
-    const confirmLogoutButton = document.getElementById('confirmLogoutButton');
-    const cancelLogoutButton = document.getElementById('cancelLogoutButton');
+const logoutButton = document.getElementById('logoutButton');
+const logoutModal = document.getElementById('logoutModal');
+const confirmLogoutButton = document.getElementById('confirmLogoutButton');
+const cancelLogoutButton = document.getElementById('cancelLogoutButton');
 
-    // Show the logout modal when the logout button is clicked
-    logoutButton.addEventListener('click', function() {
-        logoutModal.style.display = 'block';
-    });
+// Show the logout modal when the logout button is clicked
+logoutButton.addEventListener('click', function () {
+    logoutModal.style.display = 'block';
+});
 
-    // Hide the logout modal and perform logout when confirmed
-    confirmLogoutButton.addEventListener('click', function() {
-        // Perform the logout action here
-        // ...
+// Hide the logout modal and perform logout when confirmed
+confirmLogoutButton.addEventListener('click', function () {
+    // Perform the logout action here
+    // ...
 
-        logoutModal.style.display = 'none';
-    });
+    logoutModal.style.display = 'none';
+});
+
+
+
+// JavaScript code for handling the form errors modal
+document.addEventListener("DOMContentLoaded", function() {
+    const formErrorsModal = new bootstrap.Modal(document.getElementById("formErrorsModal"));
+
+    // Check if form has validation errors
+    const formErrors = "{{ form.errors|striptags }}";
+    if (formErrors.trim().length > 0) {
+        formErrorsModal.show();
+    }
+});
+
+
+
 
