@@ -60,6 +60,8 @@ def product_detail_view(request, pk):
 #     return render(request, 'index.html')
 
 
+
+
 def login_view(request):
     if request.method == 'GET':
         return render(request, 'user/login.html')

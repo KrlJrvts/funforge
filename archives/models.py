@@ -1,7 +1,15 @@
-from django.contrib.auth.base_user import BaseUserManager
-from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, Permission, Group
+from django.contrib.auth.models import (
+    AbstractBaseUser,
+    PermissionsMixin,
+    Permission,
+    Group,
+    BaseUserManager,
+    AbstractUser
+)
 from django.db import models
 from django.db.models import Model
+from django.utils import timezone
+from django.utils.translation import gettext_lazy as _
 
 # MAX LENGTHS
 XS = 10
@@ -25,62 +33,69 @@ class BaseModel(models.Model):
                 field.blank = False
 
 
-# Create your models here.
+# create user manager class
 
-class MyAccountManager(BaseUserManager):
-    def create_user(self, first_name, last_name, email, password=None):
+class CustomUserManager(BaseUserManager):
+
+    def create_user(self, email, password, first_name, last_name, phone, **other_fields):
         if not email:
-            raise ValueError("Users must have an email address")
+            raise ValueError(_('You must provide an email address'))
 
+        email = self.normalize_email(email)
+        first_name= first_name.title()
+        last_name = last_name.title()
         user = self.model(
-            first_name=self.capitalize(first_name),
-            last_name=self.capitalize(last_name),
-            email=self.normalize_email(email),
-            password=password,
+            email=email,
+            first_name=first_name,
+            last_name=last_name,
+            phone=phone,
+            **other_fields
         )
-
         user.set_password(password)
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, first_name, last_name, email, password):
-        user = self.create_user(
-            first_name=self.capitalize(first_name),
-            last_name=self.capitalize(last_name),
-            email=self.normalize_email(email),
-            password=password,
-        )
+    def create_superuser(self, email, password, first_name, last_name, phone, **other_fields):
+        other_fields.setdefault('is_staff', True)
+        other_fields.setdefault('is_superuser', True)
+        other_fields.setdefault('is_active', True)
 
-        user.role_id = 1
-        user.save(using=self._db)
+        if other_fields.get('is_staff') is not True:
+            raise ValueError(_('Superuser must be assigned to is_staff=True'))
+        if other_fields.get('is_superuser') is not True:
+            raise ValueError(_('Superuser must be assigned to is_superuser=True'))
+        return self.create_user(email, password, first_name, last_name, phone, **other_fields)
+
+
+# Create your models here.
 
 
 class User(BaseModel, AbstractBaseUser, PermissionsMixin):
+    email = models.EmailField(_('email address'), max_length=S, unique=True)
+    password = models.CharField(max_length=1000)
     first_name = models.CharField(max_length=XS)
     last_name = models.CharField(max_length=XS)
-    email = models.EmailField(verbose_name="email", max_length=S, unique=True)
-    password = models.CharField(max_length=S)
     phone = models.CharField(max_length=S)
-    date_created = models.DateTimeField(verbose_name="date joined", auto_now_add=True)
-    last_login = models.DateTimeField(verbose_name="last login", auto_now=True, null=True, blank=True)
-    status = models.CharField(max_length=1, default='A')
-    address = models.ForeignKey('Address', on_delete=models.DO_NOTHING)
-    role = models.ForeignKey('Role', on_delete=models.DO_NOTHING, default=3)
-    image = models.ForeignKey('Image', on_delete=models.DO_NOTHING, null=True, blank=True)
 
-    objects = MyAccountManager()
+    date_created = models.DateTimeField(_('date joined'), default=timezone.now)
+    last_login = models.DateTimeField(_('last login'), blank=True, null=True)
+
+    is_active = models.BooleanField(default=True)
+    is_staff = models.BooleanField(default=False)
+    is_superuser = models.BooleanField(default=False)
+
+    address = models.ForeignKey('Address', on_delete=models.DO_NOTHING, null=True, blank=True)
+    image = models.ForeignKey('Image', on_delete=models.DO_NOTHING, null=True, blank=True)
+    role = models.ForeignKey('Role', on_delete=models.DO_NOTHING, null=True, blank=True)
+
+    objects = CustomUserManager()
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['first_name', 'last_name', 'phone', 'address', 'email']
+    EMAIL_FIELD = 'email'
+    REQUIRED_FIELDS = ['first_name', 'last_name', 'phone']
 
     def __str__(self):
-        return f"{self.first_name} {self.last_name} {self.role.name} {self.email}"
-
-    # def has_perm(self, perm, obj=None):
-    #     return self.is_admin
-
-    def has_module_perms(self, app_label):
-        return True
+        return f"{self.first_name} {self.last_name} {self.is_staff} {self.email}"
 
     class Meta:
         db_table = 'user'
@@ -204,3 +219,5 @@ class Favorite(BaseModel):
 
     class Meta:
         db_table = 'favorite'
+
+
