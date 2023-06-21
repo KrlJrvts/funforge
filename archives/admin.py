@@ -11,8 +11,8 @@ class UserAdminConfig(UserAdmin):
     list_filter = ('role', 'is_active', 'is_staff')
     ordering = ('-date_created',)
 
-    fieldsets = (
-        (None, {'fields': ('email', 'first_name', 'last_name', 'password', 'phone', 'image',)}),
+    add_fieldsets = (
+        (None, {'fields': ('email','first_name', 'last_name', 'password', 'phone', 'image',)}),
         ('Permissions', {'fields': ('is_staff', 'is_active', 'role',)}),
         ('Personal', {'fields': ('address',)}),
     )
