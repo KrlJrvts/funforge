@@ -1,12 +1,13 @@
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 
-from archives.models import Category, Product, Favorite, User, UserProduct
+from archives.models import Category, Product, Favorite, User, UserProduct, Address
 from utils import forms
-from utils.forms import EditProfileForm
+from utils.forms import EditProfileForm, RegisterUserForm
 
 
 def categories_view(request):
@@ -75,20 +76,6 @@ def login_view(request):
     return render(request, 'user/login.html')
 
 
-# def index_view(request):
-#     if request.method == 'GET':
-#         return render(request, 'user/login.html')
-#     if request.method == 'POST':
-#         username = request.POST.get('username')
-#         password = request.POST.get('password')
-#         user = authenticate(request, username=username, password=password)
-#         if user:
-#             login(request, user)
-#         else:
-#             messages.error(request, 'Invalid credentials')
-#     # return render(request, 'user/login.html')
-#     return render(request, './index.html')
-
 @login_required
 def logout_view(request):
     logout(request)
@@ -97,13 +84,49 @@ def logout_view(request):
 
 def register_view(request):
     if request.method == 'POST':
-        form = forms.RegisterUserForm(request.POST)
+        form = RegisterUserForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect(reverse('index'))
+            email = form.cleaned_data['email']
+            password = form.cleaned_data['password']
+            first_name = form.cleaned_data['first_name']
+            last_name = form.cleaned_data['last_name']
+            phone = form.cleaned_data['phone_number']
+            zip_code = form.cleaned_data['zip_code']
+            country = form.cleaned_data['country']
+            county = form.cleaned_data['county']
+            city = form.cleaned_data['city']
+            street = form.cleaned_data['street']
+            house_number = form.cleaned_data['house_number']
+            apartment_number = form.cleaned_data['apartment_number']
+
+            # Create an Address object
+            address = Address.objects.create(
+                zip_code=zip_code,
+                country=country,
+                county=county,
+                city=city,
+                street=street,
+                house_number=house_number,
+                apartment_number=apartment_number
+            )
+
+            # Create the User object and associate the Address
+            user = User.objects.create_user(
+                email=email,
+                password=password,
+                first_name=first_name,
+                last_name=last_name,
+                phone=phone,
+                address=address  # Associate the Address object
+            )
+
+            # Additional processing or redirect to success page
+
     else:
-        form = forms.RegisterUserForm()
-    return render(request, './user/register.html', {'form': form})
+        form = RegisterUserForm()
+
+    context = {'form': form}
+    return render(request, 'user/login.html', context)
 
 
 @login_required
@@ -172,6 +195,7 @@ def favorite_view(request):
 # filter favorites by user
 
 
+@login_required
 def cart_view(request):
     user_id = request.session['user_id']
     user = User.objects.get(id=user_id)

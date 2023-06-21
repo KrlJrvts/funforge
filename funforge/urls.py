@@ -31,7 +31,10 @@ from archives.views import (
     register_view,
     favorite_add_view,
     favorite_remove_view,
-    favorite_view
+    favorite_view,
+    cart_view,
+    cart_add_view,
+    cart_remove_view,
 )
 
 urlpatterns = [
@@ -50,8 +53,9 @@ urlpatterns = [
     # user
     path('login/', login_view, name='login'),
     path('logout/', logout_view, name='logout'),
-    path('register/', register_view, name='register'),
+    path('register', register_view, name='register'),
     path('favorite_view/', favorite_view, name='favorite'),
     path('add_favorite/', favorite_add_view, name='add-favorite'),
     path('remove_favorite/', favorite_remove_view, name='remove-favorite'),
+    path('cart/', cart_view, name='cart'),
     ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
