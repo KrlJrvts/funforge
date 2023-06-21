@@ -1,10 +1,10 @@
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 
-from archives.models import Category, Product, Favorite, User
+from archives.models import Category, Product, Favorite, User, UserProduct
 from utils import forms
 from utils.forms import EditProfileForm
 
@@ -60,8 +60,6 @@ def product_detail_view(request, pk):
 #     return render(request, 'index.html')
 
 
-
-
 def login_view(request):
     if request.method == 'GET':
         return render(request, 'user/login.html')
@@ -91,7 +89,7 @@ def login_view(request):
 #     # return render(request, 'user/login.html')
 #     return render(request, './index.html')
 
-
+@login_required
 def logout_view(request):
     logout(request)
     return redirect(reverse('index'))
@@ -108,6 +106,7 @@ def register_view(request):
     return render(request, './user/register.html', {'form': form})
 
 
+@login_required
 def user_profile_edit_view(request):
     user = request.user
 
@@ -123,14 +122,17 @@ def user_profile_edit_view(request):
     return render(request, './user/edit_profile.html', {'form': form})
 
 
+@login_required
 def favorite_add_view(request, product_id):
-    if request.method == 'POST':
-        product = Product.objects.get(id=product_id)
+    user = request.user
 
-        favourite, created = Favorite.objects.get_or_create(user=request.user)
+    if request.method == 'POST':
+        product = get_object_or_404(Product, id=product_id)
+
+        favourite, created = Favorite.objects.get_or_create(user=user)
 
         if product in favourite.products.all():
-            messages.warning(request, "Product is already in Funforge favorites.")
+            messages.warning(request, "Product is already in your favorites.")
         else:
             favourite.products.add(product)
             messages.success(request, "Product successfully added to favorites.")
@@ -138,6 +140,7 @@ def favorite_add_view(request, product_id):
     return redirect('favorite')
 
 
+@login_required
 def favorite_remove_view(request, product_id):
     if request.method == 'POST':
         product = Product.objects.get(id=product_id)
@@ -170,20 +173,56 @@ def favorite_view(request):
 
 
 def cart_view(request):
-    pass
+    user_id = request.session['user_id']
+    user = User.objects.get(id=user_id)
+    all_cart = UserProduct.objects.filter(user=user)
+    context = {
+        'all_cart': all_cart,
+    }
+    return render(request, './user/cart.html', context)
 
 
 # update stock (remove bought qty from stock) and add to cart
 
-
+@login_required
 def cart_add_view(request):
-    pass
+    user_id = request.session['user_id']
+    user = User.objects.get(id=user_id)
+    if request.method == 'POST':
+        product_id = request.POST.get('product_id')
+        product = Product.objects.get(id=product_id)
+        qty = request.POST.get('qty')
+        if product.stock >= int(qty):
+            product.stock -= int(qty)
+            product.save()
+            user_product = UserProduct.objects.create(user=user, product=product, qty=qty)
+            user_product.save()
+            messages.success(request, "Product successfully added to cart.")
+        else:
+            messages.warning(request, "Not enough stock.")
 
 
 # add product to cart
 
-
+@login_required
 def cart_remove_view(request):
-    pass
+    user_id = request.session['user_id']
+    user = User.objects.get(id=user_id)
+
+    if request.method == 'POST':
+        product_id = request.POST.get('product_id')
+        user_product = get_object_or_404(UserProduct, user=user, product_id=product_id, status='A')
+
+        # Decrease the stock of the product
+        product = user_product.product
+        product.stock += user_product.qty
+        product.save()
+
+        # Remove the item from the user's cart
+        user_product.delete()
+
+        messages.success(request, "Product successfully removed from cart.")
+
+    return redirect('cart_view')
 
 # remove product from cart
