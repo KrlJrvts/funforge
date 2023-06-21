@@ -53,7 +53,7 @@ urlpatterns = [
     # user
     path('login/', login_view, name='login'),
     path('logout/', logout_view, name='logout'),
-    path('register', register_view, name='register'),
+    path('register/', register_view, name='register'),
     path('favorite_view/', favorite_view, name='favorite'),
     path('add_favorite/', favorite_add_view, name='add-favorite'),
     path('remove_favorite/', favorite_remove_view, name='remove-favorite'),

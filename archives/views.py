@@ -73,7 +73,7 @@ def login_view(request):
             return redirect('index')  # Redirect to the 'index' URL name
         else:
             messages.error(request, 'Invalid credentials')
-    return render(request, 'user/login.html')
+    return render(request, redirect('index'))
 
 
 @login_required

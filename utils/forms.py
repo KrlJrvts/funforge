@@ -1,4 +1,5 @@
 from django import forms
+
 from .status import Status
 
 
@@ -23,6 +24,7 @@ class RegisterUserForm(forms.Form):
     last_name = forms.CharField(label='Last Name')
     email = forms.EmailField(label='Email')
     password = forms.CharField(label='Password', widget=forms.PasswordInput)
+    password2 = forms.CharField(label='Confirm Password', widget=forms.PasswordInput)
     phone_number = forms.CharField(label='Phone Number')
     zip_code = forms.CharField(label='Zip Code')
     country = forms.CharField(label='Country')
@@ -33,8 +35,6 @@ class RegisterUserForm(forms.Form):
     apartment_number = forms.IntegerField(label='Apartment Number')
 
 
-class EditProfileForm (forms.Form):
+class EditProfileForm(forms.Form):
     pass
     # Add form for edit profile
-
-
