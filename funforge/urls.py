@@ -15,19 +15,23 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.conf import settings
-from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 from django.views.generic import TemplateView
 from archives import views
 
-from archives.views import products_view, categories_view, product_detail_view, login_view, logout_view, register_view, \
+from archives.views import index, products_view, categories_view, product_detail_view, login_view, logout_view, register_view, \
     favorite_add_view, favorite_remove_view, favorite_view
 
 urlpatterns = [
     # admin
     path('admin/', admin.site.urls),
+
+
+    # index
+     path('', index, name='index'),
+
 
     # store
     path('', TemplateView.as_view(template_name='index.html'), name='index'),

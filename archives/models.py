@@ -83,7 +83,7 @@ class Product(BaseModel):
     description = models.TextField(max_length=10000)
     status = models.CharField(max_length=1, default='A')
     category_id = models.ForeignKey('Category', on_delete=models.DO_NOTHING)
-    image = models.ForeignKey('Image', on_delete=models.DO_NOTHING, null=True, blank=True)
+    image = models.ForeignKey('Image', on_delete=models.DO_NOTHING, null=True, blank=True, related_name='products_single')
     skill = models.ForeignKey('Skill', on_delete=models.DO_NOTHING)
     age_rating = models.ForeignKey('AgeRating', on_delete=models.DO_NOTHING)
 
@@ -92,7 +92,6 @@ class Product(BaseModel):
 
     class Meta:
         db_table = 'product'
-
 
 class AgeRating(BaseModel):
     minimum = models.IntegerField()

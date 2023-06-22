@@ -5,7 +5,6 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from utils import forms
 
-
 from archives.models import Category, Product, Favorite
 from utils.forms import EditProfileForm
 
@@ -132,6 +131,7 @@ def favorite_view(request):
     }
     return render(request, './user/favorite.html', context)
 
+
 # filter favorites by user
 
 
@@ -152,6 +152,12 @@ def cart_add_view(request):
 def cart_remove_view(request):
     pass
 
+
 # remove product from cart
 
 
+# Carousel
+def index(request):
+    products = Product.objects.all()
+    context = {'products': products}
+    return render(request, 'index.html', context)                                                                                                     
