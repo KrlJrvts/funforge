@@ -15,19 +15,15 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.conf import settings
-from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path
 from django.views.generic import TemplateView
-from archives import views
 
 from archives.views import (
     products_view,
     categories_view,
     product_detail_view,
-    login_view,
-    logout_view,
     register_view,
     favorite_add_view,
     favorite_remove_view,
@@ -35,6 +31,8 @@ from archives.views import (
     cart_view,
     cart_add_view,
     cart_remove_view,
+    UserLoginView,
+    UserLogoutView
 )
 
 urlpatterns = [
@@ -51,11 +49,13 @@ urlpatterns = [
 
 
     # user
-    path('login/', login_view, name='login'),
-    path('logout/', logout_view, name='logout'),
+    path('login/', UserLoginView.as_view(), name='login'),
+    path('logout/', UserLogoutView.as_view(), name='logout'),
     path('register/', register_view, name='register'),
     path('favorite_view/', favorite_view, name='favorite'),
     path('add_favorite/', favorite_add_view, name='add-favorite'),
     path('remove_favorite/', favorite_remove_view, name='remove-favorite'),
     path('cart/', cart_view, name='cart'),
+    path('add_cart/', cart_add_view, name='add-cart'),
+    path('remove_cart/', cart_remove_view, name='remove-cart'),
     ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

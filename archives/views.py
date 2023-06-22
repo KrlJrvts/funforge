@@ -1,12 +1,11 @@
 from django.contrib import messages
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.views import LoginView, LogoutView
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 
 from archives.models import Category, Product, Favorite, User, UserProduct, Address
-from utils import forms
 from utils.forms import EditProfileForm, RegisterUserForm
 
 
@@ -35,51 +34,43 @@ def product_detail_view(request, pk):
 
 
 # user views
+class UserLoginView(LoginView):
+    template_name = 'user/login.html'
+    redirect_authenticated_user = True
+
+    def form_invalid(self, form):
+        messages.error(self.request, 'Invalid credentials')
+        return super().form_invalid(form)
 
 
-# login view should be in menu and it should take in user email and password, check if user exists and if email and
-# password is correct. if they are correct, redirect to index page, if not, display error message in login modal.
-# at the moment i can't get error and will not redirect to index page
-# Error 405:
-# Method Not Allowed (POST): /
-# Method Not Allowed: /
-# https://simpleisbetterthancomplex.com/tutorial/2016/07/22/how-to-extend-django-user-model.html
+class UserLogoutView(LogoutView):
+    template_name = 'user/logout.html'
+
+
+
+
+
+
 
 # def login_view(request):
 #     if request.method == 'GET':
 #         return render(request, 'user/login.html')
-#     if request.method == 'POST':
+#     elif request.method == 'POST':
 #         username = request.POST.get('username')
 #         password = request.POST.get('password')
 #         user = authenticate(request, username=username, password=password)
-#         if user and user.status == 'A':
+#         if user:
 #             login(request, user)
-#             return redirect(reverse('index'))
+#             return redirect('store')  # Redirect to the 'index' URL name
 #         else:
 #             messages.error(request, 'Invalid credentials')
-#     # return render(request, 'user/login.html')
-#     return render(request, 'index.html')
-
-
-def login_view(request):
-    if request.method == 'GET':
-        return render(request, 'user/login.html')
-    elif request.method == 'POST':
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-        user = authenticate(request, username=username, password=password)
-        if user and user.is_active == '1':
-            login(request, user)
-            return redirect('store')  # Redirect to the 'index' URL name
-        else:
-            messages.error(request, 'Invalid credentials')
-    return render(request, redirect('index'))
+#     return render(request, redirect('index'))
 
 
 @login_required
 def logout_view(request):
     logout(request)
-    return redirect(reverse('index'))
+    return reverse('index')
 
 
 def register_view(request):
