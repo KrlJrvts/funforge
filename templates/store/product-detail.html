@@ -22,7 +22,7 @@
 <div class="card mb-3 bg-dark-subtle d-flex {% if forloop.first and game.category_id == product.category_id %}align-items-center{% endif %}">
     <div class="row g-0">
         <div class="col-md-4">
-            <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static 'images/products/Pandemic_Legacy.jpg' %}{% endif %}"
+            <img src="{% if product.image.image %}{{ product.image.image.url }}{% else %}{% static 'images/products/Pandemic_Legacy.jpg' %}{% endif %}"
                  class="img-fluid rounded-start">
         </div>
         <div class="col-md-8">
@@ -42,7 +42,7 @@
             <div class="row g-0">
                 <div class="col-md-4">
                     {% if game.image %}
-                        <img src="{{ game.image.url }}" class="img-fluid rounded-start game-image">
+                        <img src="{{ game.image.image.url }}" class="img-fluid rounded-start game-image">
                     {% else %}
                         <img src="{% static 'images/products/default_game.jpg' %}" class="img-fluid rounded-start game-image">
                     {% endif %}
