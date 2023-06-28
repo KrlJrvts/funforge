@@ -119,3 +119,10 @@ body {
     padding: 10px !important;
 }
 
+.carousel-item img {
+        width: 300px !important;
+        display: block !important;
+        margin-left: auto !important;
+        margin-right: auto!important;
+    }
+

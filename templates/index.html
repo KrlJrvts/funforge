@@ -19,7 +19,7 @@
 {% include 'menu.html' %}
 
 <!-- Carousel -->
-<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+<div id="carouselExampleIndicators"  width="300px" class="carousel slide" data-bs-ride="carousel">
     <ol class="carousel-indicators">
         {% for product in products %}
             <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{ forloop.counter0 }}" {% if forloop.first %}class="active"{% endif %}></li>
@@ -28,7 +28,7 @@
     <div class="carousel-inner">
         {% for product in products %}
             <div class="carousel-item {% if forloop.first %}active{% endif %}">
-                <img src="{{ product.image.image.url }}" class="d-block w-100" alt="{{ product.name }}">
+                <img src="{{ product.image.image.url }}" class="d-block" width="300px" margin-left="" alt="{{ product.name }}">
             </div>
         {% endfor %}
     </div>
